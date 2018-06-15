@@ -490,7 +490,7 @@ var cloned = original.Clone();
 cloned.Name = "Dolly";
 Console.WriteLine(cloned.Name); // Dolly
 Console.WriteLine(cloned.Category); // Mountain Sheep
-Console.WriteLine(original.Name); // Dolly
+Console.WriteLine(original.Name); // Jolly
 ```
 
 **When to use?**
