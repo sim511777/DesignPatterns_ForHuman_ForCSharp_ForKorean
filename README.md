@@ -524,7 +524,7 @@ public class President
   }
 
   // Public constructor
-  public static President get_instance()
+  public static President GetInstance()
   {
     if (instance == null) {
       instance = new President();
@@ -535,10 +535,10 @@ public class President
 ```
 Then in order to use
 ```C#
-President a = President.get_instance();
-President b = President.get_instance();
+President a = President.GetInstance();
+President b = President.GetInstance();
 
-Console.WriteLine((a==b).ToString()); //Output : true
+Console.WriteLine(a == b); //Output : true
 ```
 
 Structural Design Patterns
