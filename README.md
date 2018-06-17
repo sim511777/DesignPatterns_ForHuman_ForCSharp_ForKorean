@@ -1299,7 +1299,7 @@ abstract class Account
   }
   private bool CanPay(decimal amount)
   {
-    return mBalance >= amount ? true : false;
+    return mBalance >= amount;
   }
 }
 
@@ -1731,7 +1731,7 @@ editor.Type("This is second.");
 editor.Save();
 
 //Type some more
-editor.Type("This is thrid.");
+editor.Type("This is third.");
 
 //Output the content
 Console.WriteLine(editor.Content); // This is the first sentence. This is second. This is third.
