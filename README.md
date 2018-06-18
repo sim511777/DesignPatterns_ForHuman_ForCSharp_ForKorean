@@ -113,8 +113,8 @@ public static class DoorFactory
 And then it can be used as
 ```C#
 var door = DoorFactory.MakeDoor(80, 30);
-Console.WriteLine("Height of Door : {0}", door.GetHeight());
-Console.WriteLine("Width of Door : {0}", door.GetWidth());
+Console.WriteLine($"Height of Door : {door.GetHeight()}");
+Console.WriteLine($"Width of Door : {door.GetWidth()}");
 ```
 
 **When to Use?**
@@ -378,7 +378,7 @@ class Burger
   public string GetDescription()
   {
     var sb = new StringBuilder();
-    sb.Append(String.Format("This is {0} inch Burger. ", this.mSize));
+    sb.Append($"This is {this.mSize} inch Burger. ");
     return sb.ToString();
   }
 }
@@ -586,7 +586,7 @@ class AfricanLion : ILion
 {
   public void Roar()
   {
-      
+
   }
 }
 
@@ -594,7 +594,7 @@ class AsiaLion : ILion
 {
   public void Roar()
   {
-      
+
   }
 }
 ```
@@ -678,7 +678,7 @@ class About : IWebPage
 
   public string GetContent()
   {
-    return String.Format("About page in {0}",theme.GetColor());
+    return $"About page in {theme.GetColor()}";
   }
 }
 
@@ -693,7 +693,7 @@ class Careers : IWebPage
 
   public string GetContent()
   {
-    return String.Format("Careers page in {0}",theme.GetColor());
+    return $"Careers page in {theme.GetColor()}";
   }
 }
 ```
@@ -860,7 +860,7 @@ var organization = new Organization();
 organization.AddEmployee(developer);
 organization.AddEmployee(designer);
 //Act
-Console.WriteLine("Net Salary of Emmployees in Organization is {0:c}", organization.GetNetSalaries());
+Console.WriteLine($"Net Salary of Emmployees in Organization is {organization.GetNetSalaries():c}");
 
 ```
 
@@ -966,20 +966,20 @@ Lets make a coffee now
 
 ```C#
 var myCoffee = new SimpleCoffee();
-Console.WriteLine("{0:c}",myCoffee.GetCost()); // $ 5.00
-Console.WriteLine("{0}", myCoffee.GetDescription()); // Simple Coffee
+Console.WriteLine($"{myCoffee.GetCost():c}"); // $ 5.00
+Console.WriteLine(myCoffee.GetDescription()); // Simple Coffee
 
 var milkCoffee = new MilkCoffee(myCoffee);
-Console.WriteLine("{0:c}", milkCoffee.GetCost()); // $ 6.00
-Console.WriteLine("{0}", milkCoffee.GetDescription()); // Simple Coffee, milk
+Console.WriteLine($"{milkCoffee.GetCost():c}"); // $ 6.00
+Console.WriteLine(milkCoffee.GetDescription()); // Simple Coffee, milk
 
 var whipCoffee = new WhipCoffee(milkCoffee);
-Console.WriteLine("{0:c}", whipCoffee.GetCost()); // $ 7.00
-Console.WriteLine("{0}", whipCoffee.GetDescription()); // Simple Coffee, milk, whip
+Console.WriteLine($"{whipCoffee.GetCost():c}"); // $ 7.00
+Console.WriteLine(whipCoffee.GetDescription()); // Simple Coffee, milk, whip
 
 var vanillaCoffee = new VanillaCoffee(whipCoffee);
-Console.WriteLine("{0:c}", vanillaCoffee.GetCost()); // $ 8.00
-Console.WriteLine("{0}", vanillaCoffee.GetDescription()); // Simple Coffee, milk, whip, vanilla
+Console.WriteLine($"{vanillaCoffee.GetCost():c}"); // $ 8.00
+Console.WriteLine(vanillaCoffee.GetDescription()); // Simple Coffee, milk, whip, vanilla
 ```
 
 📦 Facade
@@ -1134,7 +1134,7 @@ class TeaShop
   public void Serve()
   {
     foreach(var table  in mOrders.Keys){
-      Console.WriteLine("Serving Tea to table # {0}", table);
+      Console.WriteLine($"Serving Tea to table # {table}");
     }
   }
 }
@@ -1285,11 +1285,11 @@ abstract class Account
   {
     if (CanPay(amountTopay))
     {
-      Console.WriteLine("Paid {0:c} using {1}.", amountTopay, this.GetType().Name);
+      Console.WriteLine($"Paid {amountTopay:c} using {this.GetType().Name}.");
     }
     else if (this.mSuccessor != null)
     {
-      Console.WriteLine("Cannot pay using {0}. Proceeding..", this.GetType().Name);
+      Console.WriteLine($"Cannot pay using {this.GetType().Name}. Proceeding..");
       mSuccessor.Pay(amountTopay);
     }
     else
@@ -1475,7 +1475,7 @@ Command pattern can also be used to implement a transaction based system. Where 
 --------
 
 Real world example
-> An old radio set will be a good example of iterator, where user could start at some channel and then use next or previous buttons to go through the respective channels. Or take an example of MP3 player or a TV set where you could press the next and previous buttons to go through the consecutive channels or in other words they all provide an interface to iterate through the respective channels, songs or radio stations.  
+> An old radio set will be a good example of iterator, where user could start at some channel and then use next or previous buttons to go through the respective channels. Or take an example of MP3 player or a TV set where you could press the next and previous buttons to go through the consecutive channels or in other words they all provide an interface to iterate through the respective channels, songs or radio stations.
 
 In plain words
 > It presents a way to access the elements of an object without exposing the underlying presentation.
@@ -1598,7 +1598,7 @@ class ChatRoom : IChatRoomMediator
 {
   public void ShowMessage(User user, string message)
   {
-    Console.WriteLine("{0} [{1}]:{2}", DateTime.Now.ToString("MMMM dd, H:mm"), user.GetName(), message);
+    Console.WriteLine($"{DateTime.Now.ToString("MMMM dd, H:mm")} [{user.GetName()}]:{message}");
   }
 }
 ```
@@ -1790,7 +1790,7 @@ class JobSeeker : IObserver<JobPost>
 
   public void OnNext(JobPost value)
   {
-    Console.WriteLine("Hi {0} ! New job posted: {1}", Name, value.Title);
+    Console.WriteLine($"Hi {Name} ! New job posted: {value.Title}");
   }
 }
 ```
@@ -1972,7 +1972,7 @@ var dolphin = new Dolphin();
 
 var speak = new Speak();
 
-monkey.Accept(speak);    // Ooh oo aa aa!    
+monkey.Accept(speak);    // Ooh oo aa aa!
 lion.Accept(speak);      // Roaaar!
 dolphin.Accept(speak);   // Tuut tutt tuutt!
 
