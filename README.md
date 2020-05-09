@@ -1193,7 +1193,7 @@ class LabDoor : IDoor
 ```
 Then we have a proxy to secure any doors that we want
 ```C#
-class SecuredDoor
+class SecuredDoor : IDoor
 {
   private IDoor mDoor;
 
