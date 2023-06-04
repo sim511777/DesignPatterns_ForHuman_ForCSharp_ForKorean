@@ -1,41 +1,59 @@
 <h3 align="center">
-Adaptation of <a href="https://github.com/kamranahmedse/design-patterns-for-humans">Design Patterns for Humans</a>  to C#
+<a href="https://github.com/kamranahmedse/design-patterns-for-humans">인간을 위한 디자인 패턴</a>을 C#으로 조정
 </h3>
-<p align="center"><sub>All the explanation for design patterns stays the same, with minor changes.</sub></p>
+<p align="center"><sub>디자인 패턴에 대한 모든 설명은 약간의 변경만 있을 뿐 동일하게 유지됩니다.</sub></p>
 
 ****
 
 <p align="center">
-🎉 Ultra-simplified explanation to design patterns! 🎉
+🎉 디자인 패턴에 대한 초간단 설명! 🎉
 </p>
 <p align="center">
-A topic that can easily make anyone's mind wobble. Here I try to make them stick in to your mind (and maybe mine) by explaining them in the <i>simplest</i> way possible.
+누구나 쉽게 마음을 동요시킬 수 있는 주제. 여기서는 가능한 <i>가장 간단한</i> 방법으로 설명함으로써 그것들이 당신의 마음(그리고 아마도 내 마음)에 각인되도록 노력합니다.
 </p>
 <p align="center">
-You can find full length examples for code snippets used in this article <a href="https://github.com/anupavanm/csharp-design-patterns-for-humans-examples">here.</a>
+이 문서에서 사용된 코드 스니펫의 전체 길이 예제는 <a href="https://github.com/anupavanm/csharp-design-patterns-for-humans-examples">여기에서 찾을 수 있습니다.</a>
 </p>
 
 ****
-🚀 Introduction
+
+<br>
+
+|[Creational Design Patterns](#creational-design-patterns)|[Structural Design Patterns](#structural-design-patterns)|[Behavioral Design Patterns](#behavioral-design-patterns)|
+|:-|:-|:-|
+|[Simple Factory](#-simple-factory)|[Adapter](#-adapter)|[Chain of Responsibility](#-chain-of-responsibility)|
+|[Factory Method](#-factory-method)|[Bridge](#-bridge)|[Command](#-command)|
+|[Abstract Factory](#-abstract-factory)|[Composite](#-composite)|[Iterator](#-iterator)|
+|[Builder](#-builder)|[Decorator](#-decorator)|[Mediator](#-mediator)|
+|[Prototype](#-prototype)|[Facade](#-facade)|[Memento](#-memento)|
+|[Singleton](#-singleton)|[Flyweight](#-flyweight)|[Observer](#-observer)|
+||[Proxy](#-proxy)|[Visitor](#-visitor)|
+|||[Strategy](#-strategy)|
+|||[State](#-state)|
+|||[Template Method](#-template-method)|
+
+<br>
+
+🚀 소개
 =================
 
-Design patterns are solutions to recurring problems; **guidelines on how to tackle certain problems**. They are not classes, packages or libraries that you can plug into your application and wait for the magic to happen. These are, rather, guidelines on how to tackle certain problems in certain situations.
+디자인 패턴은 반복되는 문제에 대한 해결책입니다. **특정 문제를 해결하는 방법에 대한 지침**. 응용 프로그램에 연결하고 마법이 일어나기를 기다릴 수 있는 클래스, 패키지 또는 라이브러리가 아닙니다. 오히려 특정 상황에서 특정 문제를 해결하는 방법에 대한 지침입니다.
 
-> Design patterns are solutions to recurring problems; guidelines on how to tackle certain problems
+> 디자인 패턴은 반복되는 문제에 대한 해결책입니다. 특정 문제를 해결하는 방법에 대한 지침
 
-Wikipedia describes them as
+Wikipedia는 다음과 같이 설명합니다.
 
-> In software engineering, a software design pattern is a general reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. It is a description or template for how to solve a problem that can be used in many different situations.
+> 소프트웨어 엔지니어링에서 소프트웨어 디자인 패턴은 소프트웨어 디자인에서 주어진 컨텍스트 내에서 일반적으로 발생하는 문제에 대한 재사용 가능한 일반적인 솔루션입니다. 소스나 기계 ​​코드로 직접 변환할 수 있는 완성된 디자인이 아닙니다. 다양한 상황에서 사용할 수 있는 문제 해결 방법에 대한 설명 또는 템플릿입니다.
 
-⚠️ Be Careful
+⚠️ 조심하세요
 -----------------
-- Design patterns are not a silver bullet to all your problems.
-- Do not try to force them; bad things are supposed to happen, if done so. Keep in mind that design patterns are solutions **to** problems, not solutions **finding** problems; so don't overthink.
-- If used in a correct place in a correct manner, they can prove to be a savior; or else they can result in a horrible mess of a code.
+- 디자인 패턴이 모든 문제에 대한 묘책은 아닙니다.
+- 강제로 시도하지 마십시오. 그렇게 하면 나쁜 일이 일어나기로 되어 있습니다. 디자인 패턴은 문제를 **찾는** 솔루션이 아니라 문제 **에 대한** 솔루션이라는 점을 명심하십시오. 너무 생각하지 마십시오.
+- 올바른 장소에 올바른 방법으로 사용하면 구원자가 될 수 있습니다. 그렇지 않으면 코드가 끔찍하게 엉망이 될 수 있습니다.
 
-> Also note that the code samples below are in C#-7, however this shouldn't stop you because the concepts are same anyways. Plus the **support for other languages is underway**.
+> 또한 아래 코드 샘플은 C#-7에 있지만 개념이 어쨌든 동일하기 때문에 이것이 중단되어서는 안 됩니다. 또한 **다른 언어에 대한 지원이 진행 중**입니다.
 
-Types of Design Patterns
+디자인 패턴의 종류
 -----------------
 
 * [Creational](#creational-design-patterns)
@@ -45,11 +63,11 @@ Types of Design Patterns
 Creational Design Patterns
 ==========================
 
-In plain words
-> Creational patterns are focused towards how to instantiate an object or group of related objects.
+평범한 말로
+> 생성 패턴은 개체 또는 관련 개체 그룹을 인스턴스화하는 방법에 중점을 둡니다.
 
-Wikipedia says
-> In software engineering, creational design patterns are design patterns that deal with object creation mechanisms, trying to create objects in a manner suitable to the situation. The basic form of object creation could result in design problems or added complexity to the design. Creational design patterns solve this problem by somehow controlling this object creation.
+위키백과 말한다
+> 소프트웨어 엔지니어링에서 생성 디자인 패턴은 개체 생성 메커니즘을 다루는 디자인 패턴으로 상황에 적합한 방식으로 개체를 생성하려고 합니다. 개체 생성의 기본 형태는 디자인 문제를 일으키거나 디자인에 복잡성을 더할 수 있습니다. 생성 디자인 패턴은 이 객체 생성을 어떻게든 제어함으로써 이 문제를 해결합니다.
 
  * [Simple Factory](#-simple-factory)
  * [Factory Method](#-factory-method)
@@ -60,18 +78,18 @@ Wikipedia says
 
 🏠 Simple Factory
 --------------
-Real world example
-> Consider, you are building a house and you need doors. It would be a mess if every time you need a door, you put on your carpenter clothes and start making a door in your house. Instead you get it made from a factory.
+실제 사례
+> 당신이 집을 짓고 있고 문이 필요하다고 생각해 보십시오. 문이 필요할 때마다 목수 옷을 입고 집에 문을 만들기 시작하면 엉망이 될 것입니다. 대신 공장에서 만들어집니다.
 
-In plain words
-> Simple factory simply generates an instance for client without exposing any instantiation logic to the client
+평범한 말로
+> 단순 팩토리는 인스턴스화 논리를 클라이언트에 노출하지 않고 단순히 클라이언트에 대한 인스턴스를 생성합니다.
 
-Wikipedia says
-> In object-oriented programming (OOP), a factory is an object for creating other objects – formally a factory is a function or method that returns objects of a varying prototype or class from some method call, which is assumed to be "new".
+위키백과 말한다
+> 객체 지향 프로그래밍(OOP)에서 팩토리는 다른 객체를 생성하기 위한 객체입니다. 공식적으로 팩토리는 "new" 로 간주되는 일부 메서드 호출에서 다양한 프로토타입 또는 클래스의 객체를 반환하는 함수 또는 메서드입니다.
 
-**Programmatic Example**
+ **프로그래매틱 예시**
 
-First of all we have a door interface and the implementation
+우선 도어 인터페이스와 구현이 있습니다.
 ```C#
 public interface IDoor
 {
@@ -100,7 +118,7 @@ public class WoodenDoor : IDoor
     }
 }
 ```
-Then we have our door factory that makes the door and returns it
+그런 다음 문을 만들고 반환하는 문 공장이 있습니다.
 ```C#
 public static class DoorFactory
 {
@@ -110,32 +128,32 @@ public static class DoorFactory
     }
 }
 ```
-And then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 ```C#
 var door = DoorFactory.MakeDoor(80, 30);
 Console.WriteLine($"Height of Door : {door.GetHeight()}");
 Console.WriteLine($"Width of Door : {door.GetWidth()}");
 ```
 
-**When to Use?**
+**언제 사용하나요?**
 
-When creating an object is not just a few assignments and involves some logic, it makes sense to put it in a dedicated factory instead of repeating the same code everywhere.
+개체를 만드는 것이 단지 몇 가지 할당이 아니라 일부 논리를 포함하는 경우 모든 곳에서 동일한 코드를 반복하는 대신 전용 팩터리에 넣는 것이 좋습니다.
 
 🏭 Factory Method
 --------------
 
-Real world example
-> Consider the case of a hiring manager. It is impossible for one person to interview for each of the positions. Based on the job opening, she has to decide and delegate the interview steps to different people.
+실제 사례
+> 고용 관리자의 경우를 생각해 보십시오. 한 사람이 각 직책에 대해 인터뷰하는 것은 불가능합니다. 채용 공고에 따라 인터뷰 단계를 결정하고 다른 사람들에게 위임해야 합니다.
 
-In plain words
-> It provides a way to delegate the instantiation logic to child classes.
+평범한 말로
+> 하위 클래스에 인스턴스화 논리를 위임하는 방법을 제공합니다.
 
-Wikipedia says
-> In class-based programming, the factory method pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact class of the object that will be created. This is done by creating objects by calling a factory method—either specified in an interface and implemented by child classes, or implemented in a base class and optionally overridden by derived classes—rather than by calling a constructor.
+위키백과 말한다
+> 클래스 기반 프로그래밍에서 팩토리 메소드 패턴은 생성될 객체의 정확한 클래스를 지정하지 않고도 객체 생성 문제를 처리하기 위해 팩토리 메소드를 사용하는 생성 패턴입니다. 이는 생성자를 호출하는 대신 인터페이스에 지정되고 자식 클래스에 의해 구현되거나 기본 클래스에 구현되고 선택적으로 파생 클래스에 의해 재정의되는 팩토리 메서드를 호출하여 객체를 생성함으로써 수행됩니다.
 
- **Programmatic Example**
+ **프로그래매틱 예시**
 
-Taking our hiring manager example above. First of all we have an interviewer interface and some implementations for it
+위의 고용 관리자 예를 들어 보겠습니다. 우선 면접관 인터페이스와 그에 대한 몇 가지 구현이 있습니다.
 
 ```C#
 interface IInterviewer
@@ -160,7 +178,7 @@ class CommunityExecutive : IInterviewer
 }
 ```
 
-Now let us create our `HiringManager`
+이제 `Hiring Manager`를 만들어 보겠습니다.
 
 ```C#
 abstract class HiringManager
@@ -175,7 +193,7 @@ abstract class HiringManager
 }
 
 ```
-Now any child can extend it and provide the required interviewer
+이제 모든 파생 클래스가 이를 확장하고 필요한 면접관을 제공할 수 있습니다.
 ```C#
 class DevelopmentManager : HiringManager
 {
@@ -194,7 +212,7 @@ class MarketingManager : HiringManager
 }
 
 ```
-and then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 
 ```C#
 var devManager = new DevelopmentManager();
@@ -205,25 +223,25 @@ marketingManager.TakeInterview();//Output : Asking about community building!
 
 ```
 
-**When to use?**
+**언제 사용하나요?**
 
-Useful when there is some generic processing in a class but the required sub-class is dynamically decided at runtime. Or putting it in other words, when the client doesn't know what exact sub-class it might need.
+클래스에 일부 일반 처리가 있지만 필요한 하위 클래스가 런타임에 동적으로 결정될 때 유용합니다. 또는 다른 말로 표현하면 클라이언트가 필요한 정확한 하위 클래스가 무엇인지 모를 때입니다.
 
 🔨 Abstract Factory
 ----------------
 
-Real world example
-> Extending our door example from Simple Factory. Based on your needs you might get a wooden door from a wooden door shop, iron door from an iron shop or a PVC door from the relevant shop. Plus you might need a guy with different kind of specialities to fit the door, for example a carpenter for wooden door, welder for iron door etc. As you can see there is a dependency between the doors now, wooden door needs carpenter, iron door needs a welder etc.
+실제 사례
+> Simple Factory에서 도어 예제를 확장합니다. 필요에 따라 목제 문 상점에서 나무 문을, 철 상점에서 철문을, 관련 상점에서 PVC 문을 얻을 수 있습니다. 또한 문을 맞추려면 다른 종류의 전문 분야를 가진 사람이 필요할 수 있습니다. 예를 들어 나무 문을 위한 목수, 철문을 위한 용접공 등입니다. 지금 볼 수 있듯이 문 사이에 종속성이 있으므로 나무 문에는 목수, 철문이 필요합니다. 용접기 등이 필요합니다.
 
-In plain words
-> A factory of factories; a factory that groups the individual but related/dependent factories together without specifying their concrete classes.
+평범한 말로
+> 공장 중의 공장 구체적인 클래스를 지정하지 않고 개별적이지만 관련/종속적인 팩토리를 함께 그룹화하는 팩토리.
 
-Wikipedia says
-> The abstract factory pattern provides a way to encapsulate a group of individual factories that have a common theme without specifying their concrete classes
+위키백과 말한다
+> 추상 팩토리 패턴은 구체적인 클래스를 지정하지 않고 공통 주제를 가진 개별 팩토리 그룹을 캡슐화하는 방법을 제공합니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Translating the door example above. First of all we have our `Door` interface and some implementation for it
+위의 문 예를 번역합니다. 우선 `Door` 인터페이스와 이에 대한 일부 구현이 있습니다.
 
 ```C#
 interface IDoor {
@@ -247,7 +265,7 @@ class IronDoor : IDoor
   }
 }
 ```
-Then we have some fitting experts for each door type
+그런 다음 각 도어 유형에 맞는 피팅 전문가가 있습니다.
 
 ```C#
 interface IDoorFittingExpert
@@ -272,7 +290,7 @@ class Carpenter : IDoorFittingExpert
 }
 ```
 
-Now we have our abstract factory that would let us make family of related objects i.e. wooden door factory would create a wooden door and wooden door fitting expert and iron door factory would create an iron door and iron door fitting expert
+이제 우리는 관련 객체의 패밀리를 만들 수 있는 추상 공장을 가지고 있습니다. 즉, 나무 문 공장은 나무 문과 나무 문 부속품 전문가를 만들고 철문 공장은 철문과 철문 부속품 전문가를 만듭니다
 ```C#
 interface IDoorFactory {
   IDoor MakeDoor();
@@ -307,7 +325,7 @@ class IronDoorFactory : IDoorFactory
   }
 }
 ```
-And then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 ```C#
 var woodenDoorFactory = new WoodenDoorFactory();
 
@@ -326,24 +344,24 @@ ironDoor.GetDescription();//Output : I am a iron door
 ironDoorFittingExpert.GetDescription();//Output : I can only fit iron doors
 ```
 
-As you can see the wooden door factory has encapsulated the `carpenter` and the `wooden door` also iron door factory has encapsulated the `iron door` and `welder`. And thus it had helped us make sure that for each of the created door, we do not get a wrong fitting expert.   
+보시다시피 목수공장은 '목수'와 '목문'을 캡슐화했고, 철문공장은 '철문'과 '용접공'을 캡슐화했습니다. 따라서 생성된 각 문에 대해 잘못된 피팅 전문가를 얻지 않도록 하는 데 도움이 되었습니다.
 
-**When to use?**
+**언제 사용하나요?**
 
-When there are interrelated dependencies with not-that-simple creation logic involved
+그다지 단순하지 않은 생성 로직과 상호 관련된 종속성이 있는 경우
 
 👷 Builder
 --------------------------------------------
-Real world example
-> Imagine you are at Hardee's and you order a specific deal, lets say, "Big Hardee" and they hand it over to you without *any questions*; this is the example of simple factory. But there are cases when the creation logic might involve more steps. For example you want a customized Subway deal, you have several options in how your burger is made e.g what bread do you want? what types of sauces would you like? What cheese would you want? etc. In such cases builder pattern comes to the rescue.
+실제 사례
+> 당신이 Hardee's에 있고 특정 거래를 주문한다고 상상해 보십시오. 이것은 간단한 공장의 예입니다. 그러나 생성 논리에 더 많은 단계가 포함될 수 있는 경우가 있습니다. 예를 들어 맞춤형 지하철 거래를 원하는 경우 햄버거를 만드는 방법에 대한 몇 가지 옵션이 있습니다(예: 어떤 빵을 원하십니까?). 어떤 종류의 소스를 원하십니까? 어떤 치즈를 원하세요? 등 이러한 경우 빌더 패턴이 구출됩니다.
 
-In plain words
-> Allows you to create different flavors of an object while avoiding constructor pollution. Useful when there could be several flavors of an object. Or when there are a lot of steps involved in creation of an object.
+평범한 말로
+> 생성자 오염을 피하면서 개체의 다양한 특징을 만들 수 있습니다. 개체의 여러 가지 특징이 있을 수 있는 경우에 유용합니다. 또는 개체 생성에 관련된 많은 단계가 있는 경우.
 
-Wikipedia says
-> The builder pattern is an object creation software design pattern with the intentions of finding a solution to the telescoping constructor anti-pattern.
+위키백과 말한다
+> 빌더 패턴은 텔레스코핑 생성자 안티 패턴에 대한 해결책을 찾기 위한 객체 생성 소프트웨어 디자인 패턴입니다.
 
-Having said that let me add a bit about what telescoping constructor anti-pattern is. At one point or the other we have all seen a constructor like below:
+Telescoping 생성자 안티 패턴이 무엇인지에 대해 조금 추가하겠습니다. 한 지점 또는 다른 지점에서 우리는 모두 아래와 같은 생성자를 보았습니다.
 
 ```C#
 public Burger(int size, bool cheese, bool pepperoni, bool lettuce, bool tomato)
@@ -351,11 +369,11 @@ public Burger(int size, bool cheese, bool pepperoni, bool lettuce, bool tomato)
 }
 ```
 
-As you can see; the number of constructor parameters can quickly get out of hand and it might become difficult to understand the arrangement of parameters. Plus this parameter list could keep on growing if you would want to add more options in future. This is called telescoping constructor anti-pattern.
+보시다시피; 생성자 매개변수의 수는 빠르게 감당할 수 없게 되고 매개변수의 배열을 이해하기 어려워질 수 있습니다. 또한 이 매개변수 목록은 나중에 더 많은 옵션을 추가하려는 경우 계속 커질 수 있습니다. 이를 텔레스코핑 생성자 안티패턴이라고 합니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-The sane alternative is to use the builder pattern. First of all we have our burger that we want to make
+건전한 대안은 빌더 패턴을 사용하는 것입니다. 우선 우리가 만들고 싶은 햄버거가 있습니다.
 
 ```C#
 class Burger
@@ -384,7 +402,7 @@ class Burger
 }
 ```
 
-And then we have the builder
+그런 다음 빌더가 있습니다.
 
 ```C#
 class BurgerBuilder {
@@ -429,7 +447,7 @@ class BurgerBuilder {
   }
 }
 ```
-And then it can be used as:
+그런 다음 다음과 같이 사용할 수 있습니다.
 
 ```C#
 var burger = new BurgerBuilder(4).AddCheese()
@@ -440,26 +458,26 @@ var burger = new BurgerBuilder(4).AddCheese()
 Console.WriteLine(burger.GetDescription());
 ```
 
-**When to use?**
+**언제 사용하나요?**
 
-When there could be several flavors of an object and to avoid the constructor telescoping. The key difference from the factory pattern is that; factory pattern is to be used when the creation is a one step process while builder pattern is to be used when the creation is a multi step process.
+개체의 여러 가지 특징이 있을 수 있고 생성자 텔레스코핑을 피하기 위해. 팩토리 패턴과의 주요 차이점은 다음과 같습니다. 팩토리 패턴은 생성이 한 단계 프로세스일 때 사용되며 빌더 패턴은 생성이 여러 단계 프로세스일 때 사용됩니다.
 
 🐑 Prototype
 ------------
 Real world example
 > Remember dolly? The sheep that was cloned! Lets not get into the details but the key point here is that it is all about cloning
 
-In plain words
-> Create object based on an existing object through cloning.
+평범한 말로
+> 복제를 통해 기존 개체를 기반으로 개체를 만듭니다.
 
-Wikipedia says
-> The prototype pattern is a creational design pattern in software development. It is used when the type of objects to create is determined by a prototypical instance, which is cloned to produce new objects.
+위키백과 말한다
+> 프로토타입 패턴은 소프트웨어 개발에서 창조적인 디자인 패턴입니다. 생성할 개체의 유형이 새 개체를 생성하기 위해 복제되는 프로토타입 인스턴스에 의해 결정될 때 사용됩니다.
 
-In short, it allows you to create a copy of an existing object and modify it to your needs, instead of going through the trouble of creating an object from scratch and setting it up.
+즉, 처음부터 개체를 만들고 설정하는 수고를 겪는 대신 기존 개체의 복사본을 만들고 필요에 따라 수정할 수 있습니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-In C#, it can be easily done using `MemberwiseClone()`
+C#에서는 `Memberwise Clone()`을 사용하여 쉽게 수행할 수 있습니다.
 
 ```C#
 class Sheep
@@ -480,7 +498,7 @@ class Sheep
   }
 }
 ```
-Then it can be cloned like below
+그런 다음 아래와 같이 복제할 수 있습니다.
 ```C#
 var original = new Sheep("Jolly", "Mountain Sheep");
 Console.WriteLine(original.Name); // Jolly
@@ -493,26 +511,26 @@ Console.WriteLine(cloned.Category); // Mountain Sheep
 Console.WriteLine(original.Name); // Jolly
 ```
 
-**When to use?**
+**언제 사용하나요?**
 
-When an object is required that is similar to existing object or when the creation would be expensive as compared to cloning.
+기존 객체와 유사한 객체가 필요하거나 복제에 비해 생성 비용이 많이 드는 경우.
 
 💍 Singleton
 ------------
-Real world example
-> There can only be one president of a country at a time. The same president has to be brought to action, whenever duty calls. President here is singleton.
+실제 사례
+> 한 국가의 대통령은 한 번에 한 명만 있을 수 있습니다. 의무가 부를 때마다 같은 대통령이 행동에 나서야 합니다. 여기 대통령은 싱글 톤입니다.
 
-In plain words
-> Ensures that only one object of a particular class is ever created.
+평범한 말로
+> 특정 클래스의 개체가 하나만 생성되도록 합니다.
 
-Wikipedia says
-> In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one object. This is useful when exactly one object is needed to coordinate actions across the system.
+위키백과 말한다
+> 소프트웨어 엔지니어링에서 싱글톤 패턴은 클래스의 인스턴스화를 하나의 개체로 제한하는 소프트웨어 디자인 패턴입니다. 이는 시스템 전체에서 작업을 조정하는 데 정확히 하나의 개체가 필요한 경우에 유용합니다.
 
-Singleton pattern is actually considered an anti-pattern and overuse of it should be avoided. It is not necessarily bad and could have some valid use-cases but should be used with caution because it introduces a global state in your application and change to it in one place could affect in the other areas and it could become pretty difficult to debug. The other bad thing about them is it makes your code tightly coupled plus mocking the singleton could be difficult.
+싱글톤 패턴은 실제로 안티 패턴으로 간주되며 이를 과도하게 사용하는 것은 피해야 합니다. 반드시 나쁜 것은 아니며 일부 유효한 사용 사례가 있을 수 있지만 응용 프로그램에 전역 상태를 도입하고 한 곳에서 변경하면 다른 영역에 영향을 미칠 수 있고 디버그하기가 매우 어려워질 수 있으므로 주의해서 사용해야 합니다. 그들에 대한 또 다른 나쁜 점은 코드를 단단히 결합시키고 싱글톤을 조롱하는 것이 어려울 수 있다는 것입니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-To create a singleton, make the constructor private, disable cloning, disable extension and create a static variable to house the instance
+싱글톤을 만들려면 생성자를 비공개로 만들고, 복제를 비활성화하고, 확장을 비활성화하고 인스턴스를 보관할 정적 변수를 만듭니다.
 ```C#
 public class President
 {
@@ -533,7 +551,7 @@ public class President
   }
 }
 ```
-Then in order to use
+그럼 사용을 위해
 ```C#
 President a = President.GetInstance();
 President b = President.GetInstance();
@@ -543,11 +561,11 @@ Console.WriteLine(a == b); //Output : true
 
 Structural Design Patterns
 ==========================
-In plain words
-> Structural patterns are mostly concerned with object composition or in other words how the entities can use each other. Or yet another explanation would be, they help in answering "How to build a software component?"
+평범한 말로
+> 구조적 패턴은 주로 개체 구성, 즉 엔터티가 서로를 사용할 수 있는 방법과 관련이 있습니다. 또는 또 다른 설명은 "소프트웨어 구성 요소를 구축하는 방법"에 대답하는 데 도움이 된다는 것입니다.
 
-Wikipedia says
-> In software engineering, structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
+위키백과 말한다
+> 소프트웨어 엔지니어링에서 구조적 디자인 패턴은 엔터티 간의 관계를 구현하는 간단한 방법을 식별하여 디자인을 용이하게 하는 디자인 패턴입니다.
 
  * [Adapter](#-adapter)
  * [Bridge](#-bridge)
@@ -559,22 +577,22 @@ Wikipedia says
 
 🔌 Adapter
 -------
-Real world example
-> Consider that you have some pictures in your memory card and you need to transfer them to your computer. In order to transfer them you need some kind of adapter that is compatible with your computer ports so that you can attach memory card to your computer. In this case card reader is an adapter.
-> Another example would be the famous power adapter; a three legged plug can't be connected to a two pronged outlet, it needs to use a power adapter that makes it compatible with the two pronged outlet.
-> Yet another example would be a translator translating words spoken by one person to another
+실제 사례
+> 메모리 카드에 몇 장의 사진이 있고 컴퓨터로 전송해야 한다고 생각하십시오. 메모리 카드를 전송하려면 컴퓨터에 메모리 카드를 연결할 수 있도록 컴퓨터 포트와 호환되는 일종의 어댑터가 필요합니다. 이 경우 카드 리더는 어댑터입니다.
+> 또 다른 예는 유명한 전원 어댑터입니다. 3구 플러그는 2구 콘센트에 연결할 수 없으며 2구 콘센트와 호환되는 전원 어댑터를 사용해야 합니다.
+> 또 다른 예는 한 사람이 다른 사람에게 말한 단어를 번역하는 번역가입니다.
 
-In plain words
-> Adapter pattern lets you wrap an otherwise incompatible object in an adapter to make it compatible with another class.
+평범한 말로
+> 어댑터 패턴을 사용하면 호환되지 않는 개체를 어댑터로 래핑하여 다른 클래스와 호환되도록 할 수 있습니다.
 
-Wikipedia says
-> In software engineering, the adapter pattern is a software design pattern that allows the interface of an existing class to be used as another interface. It is often used to make existing classes work with others without modifying their source code.
+위키백과 말한다
+> 소프트웨어 엔지니어링에서 어댑터 패턴은 기존 클래스의 인터페이스를 또 다른 인터페이스로 사용할 수 있도록 하는 소프트웨어 설계 패턴입니다. 소스 코드를 수정하지 않고 기존 클래스가 다른 클래스와 함께 작동하도록 만드는 데 자주 사용됩니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Consider a game where there is a hunter and he hunts lions.
+사냥꾼이 있고 사자를 사냥하는 게임을 생각해 보십시오.
 
-First we have an interface `Lion` that all types of lions have to implement
+먼저 모든 유형의 사자가 구현해야 하는 인터페이스 `Lion`이 있습니다.
 
 ```C#
 interface ILion
@@ -598,7 +616,7 @@ class AsiaLion : ILion
   }
 }
 ```
-And hunter expects any implementation of `Lion` interface to hunt.
+그리고 Hunter는 `Lion` 인터페이스의 구현이 사냥을 기대합니다.
 ```C#
 class Hunter
 {
@@ -609,7 +627,7 @@ class Hunter
 }
 ```
 
-Now let's say we have to add a `WildDog` in our game so that hunter can hunt that also. But we can't do that directly because dog has a different interface. To make it compatible for our hunter, we will have to create an adapter that is compatible
+이제 사냥꾼이 사냥할 수 있도록 게임에 'Wild Dog'를 추가해야 한다고 가정해 보겠습니다. 하지만 dog는 인터페이스가 다르기 때문에 직접 할 수는 없습니다. 헌터와 호환되도록 하려면 호환되는 어댑터를 만들어야 합니다.
 
 ```C#
 // This needs to be added to the game
@@ -634,7 +652,7 @@ class WildDogAdapter : ILion
   }
 }
 ```
-And now the `WildDog` can be used in our game using `WildDogAdapter`.
+이제 `Wild Dog`는 `Wild Dog Adapter`를 사용하여 게임에서 사용할 수 있습니다.
 
 ```C#
 var wildDog = new WildDog();
@@ -646,20 +664,20 @@ hunter.Hunt(wildDogAdapter);
 
 🚡 Bridge
 ------
-Real world example
-> Consider you have a website with different pages and you are supposed to allow the user to change the theme. What would you do? Create multiple copies of each of the pages for each of the themes or would you just create separate theme and load them based on the user's preferences? Bridge pattern allows you to do the second i.e.
+실제 사례
+> 다른 페이지가 있는 웹사이트가 있고 사용자가 테마를 변경할 수 있도록 허용해야 한다고 가정합니다. 어떻게 하시겠습니까? 각 테마에 대해 각 페이지의 여러 복사본을 만들거나 별도의 테마를 만들고 사용자의 기본 설정에 따라 로드하시겠습니까? 브리지 패턴을 사용하면 두 번째 즉,
 
 ![With and without the bridge pattern](https://cloud.githubusercontent.com/assets/11269635/23065293/33b7aea0-f515-11e6-983f-98823c9845ee.png)
 
-In Plain Words
-> Bridge pattern is about preferring composition over inheritance. Implementation details are pushed from a hierarchy to another object with a separate hierarchy.
+평범한 말로
+> 브리지 패턴은 상속보다 구성을 선호하는 것입니다. 구현 세부 정보는 계층에서 별도의 계층이 있는 다른 개체로 푸시됩니다.
 
-Wikipedia says
-> The bridge pattern is a design pattern used in software engineering that is meant to "decouple an abstraction from its implementation so that the two can vary independently"
+위키백과 말한다
+> 브리지 패턴은 소프트웨어 엔지니어링에서 사용되는 디자인 패턴으로 "추상화를 구현에서 분리하여 둘이 독립적으로 변경될 수 있도록" 합니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Translating our WebPage example from above. Here we have the `WebPage` hierarchy
+위의 웹 페이지 예제를 번역합니다. 여기에 '웹 페이지' 계층 구조가 있습니다.
 
 ```C#
 interface IWebPage
@@ -697,7 +715,7 @@ class Careers : IWebPage
   }
 }
 ```
-And the separate theme hierarchy
+그리고 별도의 테마 계층 구조
 ```C#
 
 interface ITheme
@@ -729,7 +747,7 @@ class AquaTheme : ITheme
   }
 }
 ```
-And both the hierarchies
+그리고 두 계층 모두
 ```C#
 var darkTheme = new DarkTheme();
 var lightTheme = new LightTheme();
@@ -744,18 +762,18 @@ Console.WriteLine(careers.GetContent()); //Output: Careers page in Off White
 🌿 Composite
 -----------------
 
-Real world example
-> Every organization is composed of employees. Each of the employees has the same features i.e. has a salary, has some responsibilities, may or may not report to someone, may or may not have some subordinates etc.
+실제 사례
+> 모든 조직은 직원으로 구성됩니다. 각 직원은 동일한 기능을 가지고 있습니다. 즉, 급여가 있고, 책임이 있고, 누군가에게 보고할 수도 있고 하지 않을 수도 있고, 부하 직원이 있을 수도 있고 없을 수도 있습니다.
 
-In plain words
-> Composite pattern lets clients treat the individual objects in a uniform manner.
+평범한 말로
+> 복합 패턴을 통해 클라이언트는 개별 개체를 균일한 방식으로 처리할 수 있습니다.
 
-Wikipedia says
-> In software engineering, the composite pattern is a partitioning design pattern. The composite pattern describes that a group of objects is to be treated in the same way as a single instance of an object. The intent of a composite is to "compose" objects into tree structures to represent part-whole hierarchies. Implementing the composite pattern lets clients treat individual objects and compositions uniformly.
+위키백과 말한다
+> 소프트웨어 엔지니어링에서 복합 패턴은 분할 디자인 패턴입니다. 복합 패턴은 개체 그룹이 개체의 단일 인스턴스와 동일한 방식으로 처리됨을 설명합니다. 복합의 의도는 개체를 트리 구조로 "구성"하여 부분-전체 계층을 나타내는 것입니다. 복합 패턴을 구현하면 클라이언트가 개별 개체와 구성을 균일하게 처리할 수 있습니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Taking our employees example from above. Here we have different employee types
+위에서 직원을 예로 들어 보겠습니다. 여기에 다양한 직원 유형이 있습니다.
 
 ```C#
 interface IEmployee
@@ -821,7 +839,7 @@ class Designer : IEmployee
 }
 ```
 
-Then we have an organization which consists of several different types of employees
+그런 다음 여러 유형의 직원으로 구성된 조직이 있습니다.
 
 ```C#
 class Organization
@@ -850,7 +868,7 @@ class Organization
 }
 ```
 
-And then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 
 ```C#
 //Arrange Employees, Organization and add employees
@@ -868,19 +886,19 @@ Console.WriteLine($"Net Salary of Employees in Organization is {organization.Get
 ☕ Decorator
 -------------
 
-Real world example
+실제 사례
 
-> Imagine you run a car service shop offering multiple services. Now how do you calculate the bill to be charged? You pick one service and dynamically keep adding to it the prices for the provided services till you get the final cost. Here each type of service is a decorator.
+> 여러 서비스를 제공하는 자동차 정비소를 운영한다고 상상해 보십시오. 이제 청구할 청구서를 어떻게 계산합니까? 하나의 서비스를 선택하고 최종 비용을 얻을 때까지 제공된 서비스에 대한 가격을 동적으로 계속 추가합니다. 여기서 각 유형의 서비스는 데코레이터입니다.
 
-In plain words
-> Decorator pattern lets you dynamically change the behavior of an object at run time by wrapping them in an object of a decorator class.
+평범한 말로
+> 데코레이터 패턴을 사용하면 데코레이터 클래스의 개체에 개체를 래핑하여 런타임에 개체의 동작을 동적으로 변경할 수 있습니다.
 
-Wikipedia says
-> In object-oriented programming, the decorator pattern is a design pattern that allows behavior to be added to an individual object, either statically or dynamically, without affecting the behavior of other objects from the same class. The decorator pattern is often useful for adhering to the Single Responsibility Principle, as it allows functionality to be divided between classes with unique areas of concern.
+위키백과 말한다
+> 개체 지향 프로그래밍에서 데코레이터 패턴은 동일한 클래스의 다른 개체의 동작에 영향을 주지 않고 정적 또는 동적으로 개별 개체에 동작을 추가할 수 있도록 하는 디자인 패턴입니다. 데코레이터 패턴은 단일 책임 원칙을 준수하는 데 유용한 경우가 많습니다. 고유한 관심 영역이 있는 클래스 간에 기능을 나눌 수 있기 때문입니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Lets take coffee for example. First of all we have a simple coffee implementing the coffee interface
+예를 들어 커피를 보자. 먼저 커피 인터페이스를 구현하는 간단한 커피가 있습니다.
 
 ```C#
 interface ICoffee
@@ -902,7 +920,7 @@ class SimpleCoffee : ICoffee
   }
 }
 ```
-We want to make the code extensible to allow options to modify it if required. Lets make some add-ons (decorators)
+필요한 경우 옵션에서 코드를 수정할 수 있도록 코드를 확장 가능하게 만들고 싶습니다. 추가 기능(데코레이터)을 만들어 보겠습니다.
 ```C#
 class MilkCoffee : ICoffee
 {
@@ -963,7 +981,7 @@ class VanillaCoffee : ICoffee
 
 ```
 
-Lets make a coffee now
+이제 커피를 만들자
 
 ```C#
 var myCoffee = new SimpleCoffee();
@@ -986,18 +1004,18 @@ Console.WriteLine(vanillaCoffee.GetDescription()); // Simple Coffee, milk, whip,
 📦 Facade
 ----------------
 
-Real world example
-> How do you turn on the computer? "Hit the power button" you say! That is what you believe because you are using a simple interface that computer provides on the outside, internally it has to do a lot of stuff to make it happen. This simple interface to the complex subsystem is a facade.
+실제 사례
+> 컴퓨터는 어떻게 켜나요? "전원 버튼을 누르세요"라고 말하세요! 그것은 컴퓨터가 외부에서 제공하는 간단한 인터페이스를 사용하고 있기 때문에 내부적으로는 많은 작업을 수행해야 하기 때문에 그렇게 믿는 것입니다. 복잡한 하위 시스템에 대한 이 간단한 인터페이스는 파사드입니다.
 
-In plain words
-> Facade pattern provides a simplified interface to a complex subsystem.
+평범한 말로
+> Facade 패턴은 복잡한 하위 시스템에 대한 단순화된 인터페이스를 제공합니다.
 
-Wikipedia says
-> A facade is an object that provides a simplified interface to a larger body of code, such as a class library.
+위키백과 말한다
+> 파사드는 클래스 라이브러리와 같은 더 큰 코드 본문에 대한 단순화된 인터페이스를 제공하는 개체입니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Taking our computer example from above. Here we have the computer class
+위의 컴퓨터 예를 들어 보겠습니다. 여기 컴퓨터 수업이 있어요
 
 ```C#
 class Computer
@@ -1038,7 +1056,7 @@ class Computer
   }
 }
 ```
-Here we have the facade
+여기 우리는 정면이 있습니다
 ```C#
 class ComputerFacade
 {
@@ -1065,7 +1083,7 @@ class ComputerFacade
   }
 }
 ```
-Now to use the facade
+이제 파사드를 사용하려면
 ```C#
 var computer = new ComputerFacade(new Computer());
 computer.TurnOn(); // Ouch! Beep beep! Loading.. Ready to be used!
@@ -1077,18 +1095,19 @@ Console.ReadLine();
 🍃 Flyweight
 ---------
 
-Real world example
-> Did you ever have fresh tea from some stall? They often make more than one cup that you demanded and save the rest for any other customer so to save the resources e.g. gas etc. Flyweight pattern is all about that i.e. sharing.
+실제 사례
+> 노점에서 신선한 차를 마신 적이 있습니까? 그들은 종종 당신이 요구한 하나 이상의 컵을 만들고 다른 고객을 위해 나머지는 저장하여 자원을 절약합니다. 가스 등 플라이급 패턴은 공유에 관한 것입니다.
 
-In plain words
-> It is used to minimize memory usage or computational expenses by sharing as much as possible with similar objects.
+평범한 말로
+> 유사 객체와 최대한 공유하여 메모리 사용량이나 계산 비용을 최소화하기 위해 사용합니다.
 
-Wikipedia says
-> In computer programming, flyweight is a software design pattern. A flyweight is an object that minimizes memory use by sharing as much data as possible with other similar objects; it is a way to use objects in large numbers when a simple repeated representation would use an unacceptable amount of memory.
+위키백과 말한다
+> 컴퓨터 프로그래밍에서 플라이웨이트는 소프트웨어 설계 패턴입니다. flyweight는 다른 유사한 개체와 가능한 한 많은 데이터를 공유하여 메모리 사용을 최소화하는 개체입니다. 단순히 반복되는 표현이 용납할 수 없는 양의 메모리를 사용할 때 객체를 대량으로 사용하는 방법입니다.
 
-**Programmatic example**
+**프로그래매틱 예시**
 
-Translating our tea example from above. First of all we have tea types and tea maker
+위에서 차 예를 번역합니다. 우선 차 종류와 티 메이커가 있습니다
+
 
 ```C#
 // Anything that will be cached is flyweight.
@@ -1114,7 +1133,7 @@ class TeaMaker
 }
 ```
 
-Then we have the `TeaShop` which takes orders and serves them
+그리고 주문을 받고 서빙하는 'TeaShop'
 
 ```C#
 class TeaShop
@@ -1140,7 +1159,7 @@ class TeaShop
   }
 }
 ```
-And it can be used as below
+그리고 아래와 같이 사용할 수 있습니다.
 
 ```C#
 var teaMaker = new TeaMaker();
@@ -1158,18 +1177,19 @@ teaShop.Serve();
 
 🎱 Proxy
 -------------------
-Real world example
-> Have you ever used an access card to go through a door? There are multiple options to open that door i.e. it can be opened either using access card or by pressing a button that bypasses the security. The door's main functionality is to open but there is a proxy added on top of it to add some functionality. Let me better explain it using the code example below.
+실제 사례
+> 출입 카드를 사용하여 문을 통과한 적이 있습니까? 해당 문을 여는 방법에는 여러 가지가 있습니다. 즉, 액세스 카드를 사용하거나 보안을 우회하는 버튼을 눌러 열 수 있습니다. 문의 주요 기능은 여는 것이지만 일부 기능을 추가하기 위해 그 위에 추가된 프록시가 있습니다. 아래 코드 예제를 사용하여 더 잘 설명하겠습니다.
 
-In plain words
-> Using the proxy pattern, a class represents the functionality of another class.
+평범한 말로
+> 프록시 패턴을 사용하여 클래스는 다른 클래스의 기능을 나타냅니다.
 
-Wikipedia says
-> A proxy, in its most general form, is a class functioning as an interface to something else. A proxy is a wrapper or agent object that is being called by the client to access the real serving object behind the scenes. Use of the proxy can simply be forwarding to the real object, or can provide additional logic. In the proxy extra functionality can be provided, for example caching when operations on the real object are resource intensive, or checking preconditions before operations on the real object are invoked.
+위키백과 말한다
+> 가장 일반적인 형태의 프록시는 다른 항목에 대한 인터페이스 역할을 하는 클래스입니다. 프록시는 배후에서 실제 제공 개체에 액세스하기 위해 클라이언트가 호출하는 래퍼 또는 에이전트 개체입니다. 프록시를 사용하면 단순히 실제 개체로 전달하거나 추가 논리를 제공할 수 있습니다. 프록시에서 추가 기능을 제공할 수 있습니다. 예를 들어 실제 개체에 대한 작업이 리소스를 많이 사용하는 경우 캐싱하거나 실제 개체에 대한 작업이 호출되기 전에 전제 조건을 확인합니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Taking our security door example from above. Firstly we have the door interface and an implementation of door
+위에서 보안 도어를 예로 들어 보겠습니다. 먼저 도어 인터페이스와 도어 구현이 있습니다.
+
 
 ```C#
 interface IDoor
@@ -1191,7 +1211,7 @@ class LabDoor : IDoor
   }
 }
 ```
-Then we have a proxy to secure any doors that we want
+그런 다음 원하는 모든 문을 보호할 수 있는 프록시가 있습니다.
 ```C#
 class SecuredDoor : IDoor
 {
@@ -1225,7 +1245,7 @@ class SecuredDoor : IDoor
   }
 }
 ```
-And here is how it can be used
+사용 방법은 다음과 같습니다.
 ```C#
 var door = new SecuredDoor(new LabDoor());
 door.Open("invalid"); // Big no! It ain't possible.
@@ -1233,16 +1253,16 @@ door.Open("invalid"); // Big no! It ain't possible.
 door.Open("$ecr@t"); // Opening lab door
 door.Close(); // Closing lab door
 ```
-Yet another example would be some sort of data-mapper implementation. For example, I recently made an ODM (Object Data Mapper) for MongoDB using this pattern where I wrote a proxy around mongo classes while utilizing the magic method `__call()`. All the method calls were proxied to the original mongo class and result retrieved was returned as it is but in case of `find` or `findOne` data was mapped to the required class objects and the object was returned instead of `Cursor`.
+또 다른 예는 일종의 데이터 매퍼 구현입니다. 예를 들어, 나는 최근에 매직 메소드 `call()`을 활용하면서 mongo 클래스 주위에 프록시를 작성한 이 패턴을 사용하여 Mongo DB용 ODM(Object Data Mapper)을 만들었습니다. 모든 메서드 호출은 원래 mongo 클래스에 프록시되었고 검색된 결과는 그대로 반환되었지만 `find` 또는 `find One`의 경우 데이터가 필요한 클래스 객체에 매핑되고 `Cursor` 대신 객체가 반환되었습니다.
 
 Behavioral Design Patterns
 ==========================
 
-In plain words
-> It is concerned with assignment of responsibilities between the objects. What makes them different from structural patterns is they don't just specify the structure but also outline the patterns for message passing/communication between them. Or in other words, they assist in answering "How to run a behavior in software component?"
+평범한 말로
+> 개체 간의 책임 할당과 관련이 있습니다. 구조적 패턴과 다른 점은 구조를 지정할 뿐만 아니라 그들 사이의 메시지 전달/통신 패턴을 개략적으로 설명한다는 것입니다. 즉, "소프트웨어 구성 요소에서 동작을 실행하는 방법"에 대한 답변을 지원합니다.
 
-Wikipedia says
-> In software engineering, behavioral design patterns are design patterns that identify common communication patterns between objects and realize these patterns. By doing so, these patterns increase flexibility in carrying out this communication.
+위키백과 말한다
+> 소프트웨어 엔지니어링에서 동작 디자인 패턴은 개체 간의 일반적인 통신 패턴을 식별하고 이러한 패턴을 실현하는 디자인 패턴입니다. 그렇게 함으로써 이러한 패턴은 이 통신을 수행할 때 유연성을 증가시킵니다.
 
 * [Chain of Responsibility](#-chain-of-responsibility)
 * [Command](#-command)
@@ -1258,18 +1278,19 @@ Wikipedia says
 🔗 Chain of Responsibility
 -----------------------
 
-Real world example
-> For example, you have three payment methods (`A`, `B` and `C`) setup in your account; each having a different amount in it. `A` has 100 USD, `B` has 300 USD and `C` having 1000 USD and the preference for payments is chosen as `A` then `B` then `C`. You try to purchase something that is worth 210 USD. Using Chain of Responsibility, first of all account `A` will be checked if it can make the purchase, if yes purchase will be made and the chain will be broken. If not, request will move forward to account `B` checking for amount if yes chain will be broken otherwise the request will keep forwarding till it finds the suitable handler. Here `A`, `B` and `C` are links of the chain and the whole phenomenon is Chain of Responsibility.
+실제 사례
+> 예를 들어 계정에 세 가지 결제 수단(`A`, `B` 및 `C`)이 설정되어 있습니다. 각각 다른 양을 가지고 있습니다. `A`는 100 USD, `B`는 300 USD, `C`는 1000 USD를 가지고 있으며 지불 선호도는 `A` 다음에 `B` 다음에 `C`로 선택됩니다. 미화 210달러 상당의 물건을 구매하려고 합니다. 책임 사슬을 사용하여 먼저 'A' 계정이 구매가 가능한지 확인하고, 그렇다면 구매가 이루어지고 체인이 끊어집니다. 그렇지 않은 경우 요청은 'B' 계정으로 이동하여 예 체인이 끊어지면 금액을 확인합니다. 그렇지 않으면 적절한 핸들러를 찾을 때까지 요청이 계속 전달됩니다. 여기서 'A', 'B' 및 'C'는 사슬의 연결 고리이며 전체 현상은 책임 사슬입니다.
 
-In plain words
-> It helps building a chain of objects. Request enters from one end and keeps going from object to object till it finds the suitable handler.
+평범한 말로
+> 개체 체인을 구축하는 데 도움이 됩니다. 요청은 한쪽 끝에서 시작하여 적절한 핸들러를 찾을 때까지 개체에서 개체로 계속 이동합니다.
 
-Wikipedia says
-> In object-oriented design, the chain-of-responsibility pattern is a design pattern consisting of a source of command objects and a series of processing objects. Each processing object contains logic that defines the types of command objects that it can handle; the rest are passed to the next processing object in the chain.
+위키백과 말한다
+> 객체 지향 설계에서 책임 사슬 패턴은 명령 객체의 소스와 일련의 처리 객체로 구성된 설계 패턴입니다. 각 처리 개체에는 처리할 수 있는 명령 개체의 유형을 정의하는 논리가 포함되어 있습니다. 나머지는 체인의 다음 처리 개체로 전달됩니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Translating our account example above. First of all we have a base account having the logic for chaining the accounts together and some accounts
+위의 계정 예를 번역합니다. 먼저 계정을 함께 연결하는 논리가 있는 기본 계정과 일부 계정이 있습니다.
+
 
 ```C#
 abstract class Account
@@ -1329,7 +1350,7 @@ class Bitcoin : Account
 }
 ```
 
-Now let's prepare the chain using the links defined above (i.e. Bank, Paypal, Bitcoin)
+이제 위에서 정의한 링크(예: Bank, Paypal, Bitcoin)를 사용하여 체인을 준비하겠습니다.
 
 ```C#
 // Let's prepare a chain like below
@@ -1357,19 +1378,19 @@ bank.Pay(259);
 👮 Command
 -------
 
-Real world example
-> A generic example would be you ordering food at a restaurant. You (i.e. `Client`) ask the waiter (i.e. `Invoker`) to bring some food (i.e. `Command`) and waiter simply forwards the request to Chef (i.e. `Receiver`) who has the knowledge of what and how to cook.
-> Another example would be you (i.e. `Client`) switching on (i.e. `Command`) the television (i.e. `Receiver`) using a remote control (`Invoker`).
+실제 사례
+> 일반적인 예는 식당에서 음식을 주문하는 것입니다. 당신(즉, `Client`)은 웨이터(즉, `Invoker`)에게 음식을 가져오라고 요청하고(즉, `Command`) 웨이터는 단순히 요리할 내용과 방법에 대한 지식이 있는 셰프(즉, `Receiver`)에게 요청을 전달합니다. .
+> 또 다른 예는 리모콘(`Invoker`)을 사용하여 TV(즉 `Receiver`)를 켜는(즉 `Command`) 사용자(`Client`)입니다.
 
-In plain words
-> Allows you to encapsulate actions in objects. The key idea behind this pattern is to provide the means to decouple client from receiver.
+평범한 말로
+> 개체에 작업을 캡슐화할 수 있습니다. 이 패턴의 핵심 아이디어는 수신자로부터 클라이언트를 분리하는 수단을 제공하는 것입니다.
 
-Wikipedia says
-> In object-oriented programming, the command pattern is a behavioral design pattern in which an object is used to encapsulate all information needed to perform an action or trigger an event at a later time. This information includes the method name, the object that owns the method and values for the method parameters.
+위키백과 말한다
+> 개체 지향 프로그래밍에서 명령 패턴은 동작을 수행하거나 나중에 이벤트를 트리거하는 데 필요한 모든 정보를 캡슐화하는 데 개체를 사용하는 행동 설계 패턴입니다. 이 정보에는 메서드 이름, 메서드를 소유하는 개체 및 메서드 매개 변수 값이 포함됩니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-First of all we have the receiver that has the implementation of every action that could be performed
+먼저 수행할 수 있는 모든 작업을 구현한 수신기가 있습니다.
 ```C#
 // Receiver
 class Bulb
@@ -1385,7 +1406,7 @@ class Bulb
   }
 }
 ```
-then we have an interface that each of the commands are going to implement and then we have a set of commands
+그런 다음 각 명령이 구현할 인터페이스가 있고 명령 세트가 있습니다.
 ```C#
 interface ICommand
 {
@@ -1445,7 +1466,7 @@ class TurnOff : ICommand
   }
 }
 ```
-Then we have an `Invoker` with whom the client will interact to process any commands
+그런 다음 클라이언트가 명령을 처리하기 위해 상호 작용할 'Invoker'가 있습니다.
 ```C#
 // Invoker
 class RemoteControl
@@ -1456,7 +1477,7 @@ class RemoteControl
   }
 }
 ```
-Finally let's see how we can use it in our client
+마지막으로 클라이언트에서 어떻게 사용할 수 있는지 살펴보겠습니다.
 ```C#
   var bulb = new Bulb();
 
@@ -1470,23 +1491,23 @@ Finally let's see how we can use it in our client
   Console.ReadLine();
 ```
 
-Command pattern can also be used to implement a transaction based system. Where you keep maintaining the history of commands as soon as you execute them. If the final command is successfully executed, all good otherwise just iterate through the history and keep executing the `undo` on all the executed commands.
+명령 패턴은 트랜잭션 기반 시스템을 구현하는 데에도 사용할 수 있습니다. 명령을 실행하자마자 명령 기록을 계속 유지 관리하는 곳. 마지막 명령이 성공적으로 실행되면 그렇지 않으면 기록을 반복하고 실행된 모든 명령에서 '실행 취소'를 계속 실행합니다.
 
 ➿ Iterator
 --------
 
-Real world example
-> An old radio set will be a good example of iterator, where user could start at some channel and then use next or previous buttons to go through the respective channels. Or take an example of MP3 player or a TV set where you could press the next and previous buttons to go through the consecutive channels or in other words they all provide an interface to iterate through the respective channels, songs or radio stations.
+실제 사례
+> 이전 라디오 세트는 사용자가 일부 채널에서 시작한 다음 다음 또는 이전 버튼을 사용하여 각 채널을 이동할 수 있는 반복자의 좋은 예입니다. 또는 다음 및 이전 버튼을 눌러 연속 채널을 이동할 수 있는 MP3 플레이어 또는 TV 세트의 예를 들어 보십시오.
 
-In plain words
-> It presents a way to access the elements of an object without exposing the underlying presentation.
+평범한 말로
+> 기본 프레젠테이션을 노출하지 않고 개체의 요소에 액세스하는 방법을 제시합니다.
 
-Wikipedia says
-> In object-oriented programming, the iterator pattern is a design pattern in which an iterator is used to traverse a container and access the container's elements. The iterator pattern decouples algorithms from containers; in some cases, algorithms are necessarily container-specific and thus cannot be decoupled.
+위키백과 말한다
+> 객체 지향 프로그래밍에서 반복자 패턴은 반복자가 컨테이너를 순회하고 컨테이너의 요소에 액세스하는 데 사용되는 디자인 패턴입니다. 반복자 패턴은 컨테이너에서 알고리즘을 분리합니다. 경우에 따라 알고리즘은 반드시 컨테이너별로 다르므로 분리할 수 없습니다.
 
-**Programmatic example**
+**프로그래매틱 예시**
 
-In C# it can be done by implementing IEnumerable<T>. Translating our radio statiIons example from above. First of all we have `RadioStation`
+C#에서는 IEnumerable<T>를 구현하여 수행할 수 있습니다. 위의 라디오 통계 이온 예제를 번역합니다. 먼저 'RadioStation'이 있습니다.
 
 ```C#
 class RadioStation
@@ -1506,7 +1527,7 @@ class RadioStation
 }
 
 ```
-Then we have our iterator
+그런 다음 반복자가 있습니다.
 
 ```C#
 class StationList : IEnumerable<RadioStation>
@@ -1547,7 +1568,7 @@ class StationList : IEnumerable<RadioStation>
   }
 }
 ```
-And then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 ```C#
 var stations = new StationList();
 var station1 = new RadioStation(89);
@@ -1573,20 +1594,21 @@ Console.ReadLine();
 👽 Mediator
 ========
 
-Real world example
-> A general example would be when you talk to someone on your mobile phone, there is a network provider sitting between you and them and your conversation goes through it instead of being directly sent. In this case network provider is mediator.
+실제 사례
+> 일반적인 예는 휴대 전화로 누군가와 대화할 때 네트워크 제공업체가 귀하와 그들 사이에 있으며 귀하의 대화가 직접 전송되는 대신 이를 통해 진행되는 것입니다. 이 경우 네트워크 공급자는 중재자입니다.
 
-In plain words
-> Mediator pattern adds a third party object (called mediator) to control the interaction between two objects (called colleagues). It helps reduce the coupling between the classes communicating with each other. Because now they don't need to have the knowledge of each other's implementation.
+평범한 말로
+> 중재자 패턴은 제3자 개체(중재자라고 함)를 추가하여 두 개체(동료라고 함) 간의 상호 작용을 제어합니다. 서로 통신하는 클래스 간의 결합을 줄이는 데 도움이 됩니다. 이제 그들은 서로의 구현에 대한 지식을 가질 필요가 없기 때문입니다.
 
-Wikipedia says
-> In software engineering, the mediator pattern defines an object that encapsulates how a set of objects interact. This pattern is considered to be a behavioral pattern due to the way it can alter the program's running behavior.
+위키백과 말한다
+> 소프트웨어 엔지니어링에서 중재자 패턴은 개체 집합이 상호 작용하는 방식을 캡슐화하는 개체를 정의합니다. 이 패턴은 프로그램의 실행 동작을 변경할 수 있는 방식으로 인해 동작 패턴으로 간주됩니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Here is the simplest example of a chat room (i.e. mediator) with users (i.e. colleagues) sending messages to each other.
+다음은 사용자(예: 동료)가 서로에게 메시지를 보내는 대화방(예: 중재자)의 가장 간단한 예입니다.
 
-First of all, we have the mediator i.e. the chat room
+우선 중재자 즉 채팅방이 있습니다.
+
 
 ```C#
 interface IChatRoomMediator
@@ -1604,7 +1626,7 @@ class ChatRoom : IChatRoomMediator
 }
 ```
 
-Then we have our users i.e. colleagues
+그런 다음 사용자, 즉 동료가 있습니다.
 ```C#
 class User
 {
@@ -1628,7 +1650,7 @@ class User
   }
 }
 ```
-And the usage
+그리고 사용법
 ```C#
 var mediator = new ChatRoom();
 
@@ -1644,22 +1666,22 @@ jane.Send("Hey!");
 
 💾 Memento
 -------
-Real world example
-> Take the example of calculator (i.e. originator), where whenever you perform some calculation the last calculation is saved in memory (i.e. memento) so that you can get back to it and maybe get it restored using some action buttons (i.e. caretaker).
+실제 사례
+> 계산기(예: 발신자)의 예를 들어 계산을 수행할 때마다 마지막 계산이 메모리(예: memento)에 저장되어 다시 돌아가서 일부 작업 버튼(예: 관리인)을 사용하여 복원할 수 있습니다.
 
-In plain words
-> Memento pattern is about capturing and storing the current state of an object in a manner that it can be restored later on in a smooth manner.
+평범한 말로
+> Memento 패턴은 나중에 원활하게 복원할 수 있는 방식으로 개체의 현재 상태를 캡처하고 저장하는 것입니다.
 
-Wikipedia says
-> The memento pattern is a software design pattern that provides the ability to restore an object to its previous state (undo via rollback).
+위키백과 말한다
+> 메멘토 패턴은 개체를 이전 상태로 복원하는 기능을 제공하는 소프트웨어 설계 패턴입니다(롤백을 통해 실행 취소).
 
-Usually useful when you need to provide some sort of undo functionality.
+일종의 실행 취소 기능을 제공해야 할 때 일반적으로 유용합니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Lets take an example of text editor which keeps saving the state from time to time and that you can restore if you want.
+수시로 상태를 저장하고 원하는 경우 복원할 수 있는 텍스트 편집기의 예를 들어 보겠습니다.
 
-First of all we have our memento object that will be able to hold the editor state
+우선 에디터 상태를 유지할 수 있는 메멘토 객체가 있습니다.
 
 ```C#
 class EditorMemento
@@ -1681,7 +1703,7 @@ class EditorMemento
 }
 ```
 
-Then we have our editor i.e. originator that is going to use memento object
+그런 다음 memento 객체를 사용할 편집자, 즉 작성자가 있습니다.
 
 ```C#
 class Editor {
@@ -1719,7 +1741,7 @@ class Editor {
 }
 ```
 
-And then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 
 ```C#
 var editor = new Editor();
@@ -1746,18 +1768,18 @@ Console.Write(editor.Content); // This is the first sentence. This is second
 
 😎 Observer
 --------
-Real world example
-> A good example would be the job seekers where they subscribe to some job posting site and they are notified whenever there is a matching job opportunity.   
+실제 사례
+> 좋은 예는 구인 사이트에 가입한 구직자들이며 일치하는 채용 기회가 있을 때마다 알림을 받습니다.
 
-In plain words
-> Defines a dependency between objects so that whenever an object changes its state, all its dependents are notified.
+평범한 말로
+> 개체가 상태를 변경할 때마다 모든 종속 항목에 알림이 표시되도록 개체 간의 종속성을 정의합니다.
 
-Wikipedia says
-> The observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.
+위키백과 말한다
+> 옵저버 패턴은 주제라고 하는 개체가 옵저버라고 하는 종속 항목 목록을 유지 관리하고 일반적으로 메서드 중 하나를 호출하여 상태 변경을 자동으로 알리는 소프트웨어 설계 패턴입니다.
 
-**Programmatic example**
+**프로그래매틱 예시**
 
-Translating our example from above. First of all we have job seekers that need to be notified for a job posting
+위의 예를 번역합니다. 먼저 채용 공고에 대한 알림이 필요한 구직자가 있습니다.
 ```C#
 class JobPost
 {
@@ -1795,7 +1817,7 @@ class JobSeeker : IObserver<JobPost>
   }
 }
 ```
-Then we have our job postings to which the job seekers will subscribe
+그런 다음 구직자가 구독할 채용 공고가 있습니다.
 ```C#
 class JobPostings : IObservable<JobPost>
 {
@@ -1852,7 +1874,7 @@ internal class Unsubscriber<JobPost> : IDisposable
   }
 }
 ```
-Then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 ```C#
 //Create Subscribers
 var johnDoe = new JobSeeker("John Doe");
@@ -1875,18 +1897,18 @@ Console.ReadLine();
 
 🏃 Visitor
 -------
-Real world example
-> Consider someone visiting Dubai. They just need a way (i.e. visa) to enter Dubai. After arrival, they can come and visit any place in Dubai on their own without having to ask for permission or to do some leg work in order to visit any place here; just let them know of a place and they can visit it. Visitor pattern lets you do just that, it helps you add places to visit so that they can visit as much as they can without having to do any legwork.
+실제 사례
+> 두바이를 방문하는 사람을 생각해 보십시오. 두바이에 입국하는 방법(즉, 비자)만 있으면 됩니다. 도착 후 허가를 요청하거나 이곳을 방문하기 위해 약간의 다리 작업을 할 필요 없이 스스로 두바이의 모든 곳을 방문할 수 있습니다. 장소를 알려주면 방문할 수 있습니다. 방문자 패턴을 사용하면 방문할 장소를 추가하여 다리 작업을 하지 않고도 최대한 많이 방문할 수 있습니다.
 
-In plain words
-> Visitor pattern lets you add further operations to objects without having to modify them.
+평범한 말로
+> 방문자 패턴을 사용하면 개체를 수정하지 않고도 개체에 추가 작업을 추가할 수 있습니다.
 
-Wikipedia says
-> In object-oriented programming and software engineering, the visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying those structures. It is one way to follow the open/closed principle.
+위키백과 말한다
+> 개체 지향 프로그래밍 및 소프트웨어 엔지니어링에서 방문자 디자인 패턴은 알고리즘이 작동하는 개체 구조에서 알고리즘을 분리하는 방법입니다. 이러한 분리의 실질적인 결과는 기존 개체 구조를 수정하지 않고 새 작업을 기존 개체 구조에 추가하는 기능입니다. 개방/폐쇄 원칙을 따르는 한 가지 방법입니다.
 
-**Programmatic example**
+**프로그래매틱 예시**
 
-Let's take an example of a zoo simulation where we have several different kinds of animals and we have to make them Sound. Let's translate this using visitor pattern
+여러 종류의 동물이 있고 그것들을 소리로 만들어야 하는 동물원 시뮬레이션의 예를 들어 봅시다. 방문자 패턴을 사용하여 이것을 번역해 보겠습니다.
 
 ```C#
 // Visitee
@@ -1903,7 +1925,7 @@ interface IAnimalOperation
   void VisitDolphin(Dolphin dolphin);
 }
 ```
-Then we have our implementations for the animals
+그런 다음 동물에 대한 구현이 있습니다.
 ```C#
 class Monkey : IAnimal
 {
@@ -1944,7 +1966,7 @@ class Dolphin : IAnimal
   }
 }
 ```
-Let's implement our visitor
+방문자를 구현해 봅시다
 ```C#
 class Speak : IAnimalOperation
 {
@@ -1965,7 +1987,7 @@ class Speak : IAnimalOperation
 }
 ```
 
-And then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 ```C#
 var monkey = new Monkey();
 var lion = new Lion();
@@ -1978,7 +2000,7 @@ lion.Accept(speak);      // Roaaar!
 dolphin.Accept(speak);   // Tuut tutt tuutt!
 
 ```
-We could have done this simply by having an inheritance hierarchy for the animals but then we would have to modify the animals whenever we would have to add new actions to animals. But now we will not have to change them. For example, let's say we are asked to add the jump behavior to the animals, we can simply add that by creating a new visitor i.e.
+우리는 단순히 동물에 대한 상속 계층 구조를 가짐으로써 이를 수행할 수 있었지만 동물에 새 작업을 추가해야 할 때마다 동물을 수정해야 했습니다. 그러나 이제 우리는 그것들을 바꿀 필요가 없을 것입니다. 예를 들어 동물에게 점프 동작을 추가하라는 요청을 받았다고 가정해 보겠습니다. 새 방문자를 생성하여 간단하게 추가할 수 있습니다.
 
 ```C#
 class Jump : IAnimalOperation
@@ -1999,7 +2021,7 @@ class Jump : IAnimalOperation
   }
 }
 ```
-And for the usage
+그리고 사용법을 위해
 ```C#
 var jump = new Jump();
 
@@ -2017,18 +2039,18 @@ dolphin.Accept(jump);   // Walked on water a little and disappeared
 💡 Strategy
 --------
 
-Real world example
-> Consider the example of sorting, we implemented bubble sort but the data started to grow and bubble sort started getting very slow. In order to tackle this we implemented Quick sort. But now although the quick sort algorithm was doing better for large datasets, it was very slow for smaller datasets. In order to handle this we implemented a strategy where for small datasets, bubble sort will be used and for larger, quick sort.
+실제 사례
+> 정렬의 예를 고려하여 버블 정렬을 구현했지만 데이터가 증가하기 시작했고 버블 정렬이 매우 느려지기 시작했습니다. 이를 해결하기 위해 퀵 정렬을 구현했습니다. 그러나 지금은 빠른 정렬 알고리즘이 큰 데이터 세트에 대해 더 잘 작동하지만 작은 데이터 세트에 대해서는 매우 느립니다. 이를 처리하기 위해 작은 데이터 세트의 경우 버블 정렬을 사용하고 더 크고 빠른 정렬을 위한 전략을 구현했습니다.
 
-In plain words
-> Strategy pattern allows you to switch the algorithm or strategy based upon the situation.
+평범한 말로
+> 전략 패턴을 사용하면 상황에 따라 알고리즘 또는 전략을 전환할 수 있습니다.
 
-Wikipedia says
-> In computer programming, the strategy pattern (also known as the policy pattern) is a behavioural software design pattern that enables an algorithm's behavior to be selected at runtime.
+위키백과 말한다
+> 컴퓨터 프로그래밍에서 전략 패턴(정책 패턴이라고도 함)은 런타임에 알고리즘의 동작을 선택할 수 있도록 하는 동작 소프트웨어 설계 패턴입니다.
 
-**Programmatic example**
+**프로그래매틱 예시**
 
-Translating our example from above. First of all we have our strategy interface and different strategy implementations
+위의 예를 번역합니다. 우선 전략 인터페이스와 다양한 전략 구현이 있습니다.
 
 ```C#
 interface ISortStrategy
@@ -2055,7 +2077,7 @@ class QuickSortStrategy : ISortStrategy
 }
 ```
 
-And then we have our client that is going to use any strategy
+그리고 어떤 전략이든 사용할 고객이 있습니다.
 ```C#
 class Sorter
 {
@@ -2072,7 +2094,7 @@ class Sorter
   }
 }
 ```
-And it can be used as
+그리고 다음과 같이 사용할 수 있습니다.
 ```C#
 var unSortedList = new List<int> { 1, 10, 2, 16, 19 };
 
@@ -2085,21 +2107,21 @@ sorter.Sort(unSortedList); // // Output : Sorting using Quick Sort !
 
 💢 State
 -----
-Real world example
-> Imagine you are using some drawing application, you choose the paint brush to draw. Now the brush changes its behavior based on the selected color i.e. if you have chosen red color it will draw in red, if blue then it will be in blue etc.  
+실제 사례
+> 그리기 응용 프로그램을 사용 중이고 그릴 페인트 브러시를 선택한다고 상상해 보십시오. 이제 브러시는 선택한 색상에 따라 동작을 변경합니다. 즉, 빨간색을 선택한 경우 빨간색으로, 파란색인 경우 파란색으로 그리는 식입니다.
 
-In plain words
-> It lets you change the behavior of a class when the state changes.
+평범한 말로
+> 상태가 변경될 때 클래스의 동작을 변경할 수 있습니다.
 
-Wikipedia says
-> The state pattern is a behavioral software design pattern that implements a state machine in an object-oriented way. With the state pattern, a state machine is implemented by implementing each individual state as a derived class of the state pattern interface, and implementing state transitions by invoking methods defined by the pattern's superclass.
-> The state pattern can be interpreted as a strategy pattern which is able to switch the current strategy through invocations of methods defined in the pattern's interface.
+위키백과 말한다
+> 상태 패턴은 객체 지향 방식으로 상태 머신을 구현하는 동작 소프트웨어 설계 패턴입니다. 상태 패턴을 사용하면 각 개별 상태를 상태 패턴 인터페이스의 파생 클래스로 구현하고 패턴의 슈퍼클래스에서 정의한 메서드를 호출하여 상태 전환을 구현하여 상태 머신을 구현합니다.
+> 상태 패턴은 패턴의 인터페이스에 정의된 메서드 호출을 통해 현재 전략을 전환할 수 있는 전략 패턴으로 해석할 수 있습니다.
 
-**Programmatic example**
+**프로그래매틱 예시**
 
-Let's take an example of text editor, it lets you change the state of text that is typed i.e. if you have selected bold, it starts writing in bold, if italic then in italics etc.
+텍스트 편집기의 예를 들어 보겠습니다. 입력된 텍스트의 상태를 변경할 수 있습니다.
 
-First of all we have our state interface and some state implementations
+우선 상태 인터페이스와 일부 상태 구현이 있습니다.
 
 ```C#
 interface IWritingState {
@@ -2132,7 +2154,7 @@ class DefaultText : IWritingState
   }
 }
 ```
-Then we have our editor
+그런 다음 편집자가 있습니다.
 ```C#
 class TextEditor {
 
@@ -2155,7 +2177,7 @@ class TextEditor {
 
 }
 ```
-And then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 ```C#
 var editor = new TextEditor();
 
@@ -2182,26 +2204,26 @@ editor.Type("Fifthe Line");
 📒 Template Method
 ---------------
 
-Real world example
-> Suppose we are getting some house built. The steps for building might look like
-> - Prepare the base of house
-> - Build the walls
-> - Add roof
-> - Add other floors
+실제 사례
+> 집을 지었다고 가정해 보겠습니다. 구축 단계는 다음과 같습니다.
+> - 집의 기반을 준비
+> - 벽을 구축
+> - 지붕 추가
+> - 다른 층 추가
 
-> The order of these steps could never be changed i.e. you can't build the roof before building the walls etc but each of the steps could be modified for example walls can be made of wood or polyester or stone.
+> 이 단계의 순서는 절대 변경할 수 없습니다. 즉, 벽 등을 만들기 전에 지붕을 만들 수 없지만 각 단계는 수정할 수 있습니다.
 
-In plain words
-> Template method defines the skeleton of how a certain algorithm could be performed, but defers the implementation of those steps to the children classes.
+평범한 말로
+> 템플릿 방법은 특정 알고리즘이 수행될 수 있는 방법의 골격을 정의하지만 해당 단계의 구현을 하위 클래스에 맡깁니다.
 
-Wikipedia says
-> In software engineering, the template method pattern is a behavioral design pattern that defines the program skeleton of an algorithm in an operation, deferring some steps to subclasses. It lets one redefine certain steps of an algorithm without changing the algorithm's structure.
+위키백과 말한다
+> 소프트웨어 엔지니어링에서 템플릿 메서드 패턴은 작업에서 알고리즘의 프로그램 골격을 정의하고 일부 단계를 하위 클래스로 연기하는 동작 설계 패턴입니다. 알고리즘의 구조를 변경하지 않고 알고리즘의 특정 단계를 재정의할 수 있습니다.
 
-**Programmatic Example**
+**프로그래매틱 예시**
 
-Imagine we have a build tool that helps us test, lint, build, generate build reports (i.e. code coverage reports, linting report etc) and deploy our app on the test server.
+테스트, 린트, 빌드, 빌드 보고서(예: 코드 커버리지 보고서, 린팅 보고서 등)를 생성하고 테스트 서버에 앱을 배포하는 데 도움이 되는 빌드 도구가 있다고 상상해 보세요.
 
-First of all we have our base class that specifies the skeleton for the build algorithm
+우선 빌드 알고리즘의 골격을 지정하는 기본 클래스가 있습니다.
 ```C#
 abstract class Builder
 {
@@ -2221,7 +2243,7 @@ abstract class Builder
 }
 ```
 
-Then we can have our implementations
+그런 다음 구현을 할 수 있습니다.
 
 ```C#
 class AndroidBuilder : Builder
@@ -2272,7 +2294,7 @@ class IosBuilder : Builder
 }
 
 ```
-And then it can be used as
+그런 다음 다음과 같이 사용할 수 있습니다.
 
 ```C#
 var androidBuilder = new AndroidBuilder();
@@ -2294,17 +2316,17 @@ iosBuilder.Build();
 // Deploying ios build to server
 ```
 
-## 🚦 Wrap Up Folks
+## 🚦 사람들을 마무리
 
-And that about wraps it up. I will continue to improve this, so you might want to watch/star this repository to revisit. Also, I have plans on writing the same about the architectural patterns, stay tuned for it.
+그리고 그것에 대해 마무리합니다. 나는 이것을 계속 개선할 것이므로 이 저장소를 보고/별표 표시하여 다시 방문할 수 있습니다. 또한 건축 패턴에 대해서도 같은 글을 쓸 계획이 있으니 계속 지켜봐 주시기 바랍니다.
 
-## 👬 Contribution
+## 👬 기부금
 
 - Report issues
 - Open pull request with improvements
 - Spread the word
 - Contact me on <a href="https://twitter.com/anupavanm">Twitter</a> 
 
-## License
+## 특허
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
